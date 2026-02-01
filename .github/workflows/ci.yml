@@ -1,0 +1,32 @@
+name: CI Docker Compose Validation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  compose-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and start services
+        run: |
+          docker compose up -d --build
+
+      - name: Validate web service
+        run: |
+          sleep 5
+          curl -f http://localhost:8080
+
+      - name: Run automation container
+        run: |
+          docker compose logs automation
+
+      - name: Tear down services
+        if: always()
+        run: |
+          docker compose down

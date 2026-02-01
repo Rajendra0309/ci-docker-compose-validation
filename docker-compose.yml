@@ -1,0 +1,10 @@
+services:
+  automation:
+    build: .
+    depends_on:
+      - web
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
