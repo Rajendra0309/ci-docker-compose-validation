@@ -5,6 +5,6 @@ services:
       - web
 
   web:
-    image: nginx:latest
+    image: nginx:wrongtag #intentional failure
     ports:
       - "8080:80"
